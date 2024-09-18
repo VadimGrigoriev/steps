@@ -4,11 +4,15 @@
   margin-bottom: 20px;
 }
 
-input[type="text"], input[type="float"] {
+input[type="date"], input[type="float"] {
   flex: 1;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+
+input[type="date"] {
+  font-family: Arial, sans-serif; /* Семейство шрифтов */
 }
 
 button {

@@ -2,6 +2,7 @@ import { InputGroup } from '../InputGroup/InputGroup';
 import { TableEntries } from '../TableEntries/TableEntries';
 import './Steps.css';
 import { useCallback, useState } from 'react';
+import { parseDate } from '../../utils/parseDate';
 
 export function Steps() {
   const [entries, setEntries] = useState([
@@ -11,20 +12,20 @@ export function Steps() {
   ]);
 
   const onAddEntry = useCallback((newEntry) => {
-    setEntries(entries => {
-      const entryIndex = entries.findIndex(entry => entry.date === newEntry.date);
+    setEntries(prevEntries => {
+      const entryIndex = prevEntries.findIndex(entry => entry.date === newEntry.date);
 
       let updatedEntries;
       if (entryIndex !== -1) {
         // Если запись с такой датой уже существует, обновляем её
-        updatedEntries = [...entries];
+        updatedEntries = [...prevEntries];
         updatedEntries[entryIndex] = {...updatedEntries[entryIndex], distance: updatedEntries[entryIndex].distance + newEntry.distance};
       } else {
         // Если записи с такой датой нет, добавляем новую
-        updatedEntries = [...entries, {id: Date.now(), ...newEntry}];
+        updatedEntries = [...prevEntries, {id: Date.now(), ...newEntry}];
       };
       // Сортируем список
-      return updatedEntries.sort((a, b) => new Date(b.date) - new Date(a.date));
+      return updatedEntries.sort((a, b) => parseDate(b.date) - parseDate(a.date));
     });
   }, []);
 

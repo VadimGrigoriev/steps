@@ -20,7 +20,7 @@ export function InputGroup({ onAddEntry }) {
   return (
     <form onSubmit={onSubmit} className='form'>
       <input 
-        type='text' 
+        type='date' 
         name='date'
         value={date}
         onChange={(e) => setDate(e.target.value)}
